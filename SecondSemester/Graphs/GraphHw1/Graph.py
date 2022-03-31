@@ -134,17 +134,25 @@ class Graph:
         if self.check_if_vertex_exists(target_vertex) is False:
             return False
         else:
-            self.__remove_vertex_from_neighbours(target_vertex)
+            # self.__remove_vertex_from_neighbours(target_vertex)
+            for edge in self.__out_dict[target_vertex]:
+                self.__in_dict[edge].remove(target_vertex)
+                self.__cost_dict.pop((target_vertex, edge), None)
+                self.__number_of_edges -= 1
+            for edge in self.__in_dict[target_vertex]:
+                self.__out_dict[edge].remove(target_vertex)
+                self.__cost_dict.pop((edge, target_vertex), None)
+                self.__number_of_edges -= 1
             if target_vertex in self.__in_dict:
                 self.__in_dict.pop(target_vertex, None)
             if target_vertex in self.__out_dict:
                 self.__out_dict.pop(target_vertex, None)
 
-            list_of_edges = list(self.__cost_dict.keys())
-            for edge_pair in list_of_edges:
-                if edge_pair[0] == target_vertex or edge_pair[1] == target_vertex:
-                    self.__cost_dict.pop(edge_pair, None)
-                    self.__number_of_edges -= 1
+            # list_of_edges = list(self.__cost_dict.keys())
+            # for edge_pair in list_of_edges:
+            #     if edge_pair[0] == target_vertex or edge_pair[1] == target_vertex:
+            #         self.__cost_dict.pop(edge_pair, None)
+            #         self.__number_of_edges -= 1
             self.__number_of_vertices -= 1
             return True
 
