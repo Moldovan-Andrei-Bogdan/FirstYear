@@ -12,7 +12,11 @@ def print_hi(name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    type_of_graphs_option = input("Enter u for undirected graphs and d for directed graphs")
     user_interface = UI()
-    user_interface.run_console()
+    if type_of_graphs_option == 'd':
+        user_interface.run_console_d()
+    else:
+        user_interface.run_console_u()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
